@@ -3,7 +3,6 @@
 const shipFactory = (_length) => {
   const length = _length;
   let hits = 0;
-  let sunk = false;
 
   function isSunk() {
     return hits === length;
@@ -11,10 +10,9 @@ const shipFactory = (_length) => {
 
   function hit() {
     hits += 1;
-    sunk = isSunk();
   }
 
-  return { isSunk, hit };
+  return { length, isSunk, hit };
 }
 
 export default shipFactory;
