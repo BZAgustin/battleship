@@ -2,9 +2,9 @@ import shipFactory from "./ship";
 
 const gameboardFactory = () => {
   const board = Array.from({ length: 10 }, 
-    () => Array(10).fill(null));
+  () => Array(10).fill(null));
   const trackingBoard = Array.from({ length: 10 }, 
-    () => Array(10).fill(0));
+  () => Array(10).fill(false));
 
   const float = {
     carrier: shipFactory(5),
@@ -14,16 +14,16 @@ const gameboardFactory = () => {
     destroyer: shipFactory(2)
   }
 
-  function isOverlapping(ship, x, y, axis) {
+  function isOverlapping(ship, row, column, axis) {
     if(axis === 0) {
       for(let i = 0; i < ship.length; i+=1) {
-        if(board[y][x+i] !== null) {
+        if(board[column][row+i] !== null) {
           return true;
         }
       }
     } else {
       for(let i = 0; i < ship.length; i+=1) {
-        if(board[y+i][x] !== null) {
+        if(board[column+i][row] !== null) {
           return true;
         } 
       }
@@ -32,38 +32,38 @@ const gameboardFactory = () => {
     return false;
   }
 
-  function isOutOfBounds(ship, x, y, axis) {
+  function isOutOfBounds(ship, row, column, axis) {
     if(axis === 0) {
-      return ship.length + x > 10;
+      return ship.length + row > 10;
     }
     
-    return ship.length + y > 10;
+    return ship.length + column > 10;
   }
 
-  function placeShip(ship, x, y, axis) {
-    if(isOutOfBounds(ship, x, y, axis)) {
+  function placeShip(ship, row, column, axis) {
+    if(isOutOfBounds(ship, row, column, axis)) {
       throw new Error('Ship length exceeds boundaries');
-    } else if(isOverlapping(ship, x, y, axis)) {
+    } else if(isOverlapping(ship, row, column, axis)) {
       throw new Error('Overlapping other ship');
     }
 
     if(axis === 0) {  
       for(let i = 0; i < ship.length; i+=1) {
-        board[y][x+i] = ship;
+        board[column][row+i] = ship;
       }
     } else {
       for(let i = 0; i < ship.length; i+=1) {
-        board[y+i][x] = ship;
+        board[column+i][row] = ship;
       }
     }
   }
 
-  function receiveAttack(x, y) {
-    if(board[y][x] !== null) {
-      board[y][x].hit();
+  function receiveAttack(row, column) {
+    if(board[column][row] !== null) {
+      board[column][row].hit();
     }
 
-    trackingBoard[y][x] = 1;
+    trackingBoard[column][row] = 1;
   }
 
   return { board, float, placeShip, receiveAttack }
