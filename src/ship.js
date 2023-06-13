@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 
-const shipFactory = (_length) => {
+const Ship = (_length) => {
   const length = _length;
   let hits = 0;
 
@@ -15,4 +15,4 @@ const shipFactory = (_length) => {
   return { length, isSunk, hit };
 }
 
-export default shipFactory;
+export default Ship;
