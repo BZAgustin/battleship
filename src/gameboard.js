@@ -1,18 +1,9 @@
-import shipFactory from "./ship";
 
-const gameboardFactory = () => {
+const Gameboard = () => {
   const board = Array.from({ length: 10 }, 
   () => Array(10).fill(null));
   const trackingBoard = Array.from({ length: 10 }, 
   () => Array(10).fill(false));
-
-  const float = {
-    carrier: shipFactory(5),
-    battleship: shipFactory(4),
-    cruiser: shipFactory(3),
-    submarine: shipFactory(3),
-    destroyer: shipFactory(2)
-  }
 
   function isOverlapping(ship, row, column, isVertical) {
     if(isVertical === false) {
@@ -25,7 +16,7 @@ const gameboardFactory = () => {
       for(let i = 0; i < ship.length; i+=1) {
         if(board[row+i][column] !== null) {
           return true;
-        } 
+        }
       }
     }
 
@@ -81,7 +72,13 @@ const gameboardFactory = () => {
     return true;
   }
 
-  return { board, trackingBoard, float, placeShip, receiveAttack, areShipsSunk }
+  function placeFloat(ships) {
+    for(let i = 0; i < ships.length; i+=1) {
+      placeShip(ships[i], 0, i, true);
+    }
+  }
+
+  return { board, trackingBoard, placeShip, receiveAttack, areShipsSunk, placeFloat }
 };
 
-export default gameboardFactory;
+export default Gameboard;
