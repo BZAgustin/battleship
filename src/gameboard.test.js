@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 
-import gameboardFactory from "./gameboard";
-import shipFactory from "./ship";
+import Gameboard from "./gameboard";
+import Ship from "./ship";
 
 let gameboard;
 let ship;
@@ -9,12 +9,12 @@ let testboard = [];
 let trackboard = [];
 
 beforeEach(() => {
-  gameboard = gameboardFactory();
-  ship = shipFactory(3);
+  gameboard = Gameboard();
+  ship = Ship(3);
   testboard = Array.from({ length: 10 },
-    () => Array(10).fill(null));
+            () => Array(10).fill(null));
   trackboard = Array.from({ length: 10 },
-    () => Array(10).fill(false));
+            () => Array(10).fill(false));
 });
 
 test('Builds gameboard', () => {
@@ -23,7 +23,7 @@ test('Builds gameboard', () => {
 
 describe('Ship placement', () => {
   test('Places a ship horizontally', () => {
-    gameboard.placeShip(gameboard.float.cruiser, 0, 0, false);
+    gameboard.placeShip(ship, 0, 0, false);
     testboard[0][0] = ship;
     testboard[0][1] = ship;
     testboard[0][2] = ship;
@@ -31,7 +31,7 @@ describe('Ship placement', () => {
   });
   
   test('Places a ship vertically', () => {
-    gameboard.placeShip(gameboard.float.cruiser, 0, 2, true);
+    gameboard.placeShip(ship, 0, 2, true);
     testboard[0][2] = ship;
     testboard[1][2] = ship;
     testboard[2][2] = ship;
@@ -51,17 +51,17 @@ describe('Ship placement', () => {
   });
   
   test('Throws an error if placing a ship that exceeds horizontal boundaries', () => {
-    expect(() => gameboard.placeShip(gameboard.float.carrier, 0, 6, false)).toThrow('Ship length exceeds boundaries');
+    expect(() => gameboard.placeShip(ship, 0, 8, false)).toThrow('Ship length exceeds boundaries');
   });
   
   test('Throws an error if placing a ship that exceeds vertical boundaries', () => {
-    expect(() => gameboard.placeShip(gameboard.float.carrier, 6, 0, true)).toThrow('Ship length exceeds boundaries');
+    expect(() => gameboard.placeShip(ship, 8, 0, true)).toThrow('Ship length exceeds boundaries');
   });
   
   test('Throws an error if placing a ship that overlaps with another ship', () => {
-    gameboard.placeShip(gameboard.float.carrier, 0, 0, false);
+    gameboard.placeShip(ship, 0, 0, false);
   
-    expect(() => gameboard.placeShip(gameboard.float.battleship, 0, 2, true)).toThrow('Overlapping other ship');
+    expect(() => gameboard.placeShip(ship, 0, 0, true)).toThrow('Overlapping other ship');
   });
 });
 
