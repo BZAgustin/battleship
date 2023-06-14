@@ -1,21 +1,27 @@
 import Player from "./player"
+import Display from "./display";
 
 const Game = () => {
   const player = Player();
   const opponent = Player();
+  const display = Display();
 
   let activeDefender = opponent
 
-  player.placeMyFloat();
-  opponent.placeMyFloat();
-
-  function play() {
-    // playerTurn(activeDefender, )
+  function initGame() {
+    player.placeMyFloat();
+    opponent.placeMyFloat();
+    display.drawBoards();
   }
-
+  
   function playerTurn(defender, row, column) {
     defender.gameboard.receiveAttack(row, column);
   }
+
+  function play() {
+    initGame();
+  }
+
 
   return { play, playerTurn }  
 }
