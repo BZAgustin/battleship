@@ -1,0 +1,75 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+header, footer {
+  padding: 8px;
+  text-align: center;
+}
+
+/* ------------------------------ HEADER ------------------------------ */
+
+header {
+  background-color: darkolivegreen;
+}
+
+/* ------------------------------ BOARDS ------------------------------ */
+
+main {
+  display: flex;
+  flex-grow: 1;
+}
+
+.board-container {
+  display: flex;
+  flex-grow: 1;
+}
+
+.left-board-container, .right-board-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+.left-board-container {
+  background-color: rgb(49, 80, 48);
+}
+
+.right-board-container {
+  background-color: rgb(51, 63, 34);
+}
+
+#left-board, #right-board {
+  display: grid;
+  grid-template-rows: repeat(10, 1fr);
+  grid-template-columns: repeat(10, 1fr);
+  grid-gap: 2px;
+}
+
+.cell {
+  background-color: aliceblue;
+  width: 48px;
+  height: 48px;
+}
+
+/* ------------------------------ FOOTER ------------------------------ */
+
+footer {
+  background-color: darkslategrey;
+}
