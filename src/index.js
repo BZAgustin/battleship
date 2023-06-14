@@ -1,5 +1,3 @@
-import Display from "./display";
+import Game from "./gameController";
 
-const display = Display();
-
-display.drawBoards();
+Game().play();
