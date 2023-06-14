@@ -11,8 +11,10 @@ const Display = () => {
         const rightCell = document.createElement('div');
         leftCell.className = 'cell';
         rightCell.className = 'cell';
-        leftCell.id = `0${i}${j}`;
-        rightCell.id = `1${i}${j}`;
+        leftCell.dataset.row = i;
+        leftCell.dataset.col = j;
+        rightCell.dataset.row = i;
+        rightCell.dataset.col = j;
         leftBoard.appendChild(leftCell);
         rightBoard.appendChild(rightCell);
       }
