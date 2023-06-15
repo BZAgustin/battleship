@@ -2,17 +2,17 @@
 
 const Ship = (_length) => {
   const length = _length;
-  let hits = 0;
+  const hits = 0;
 
   function isSunk() {
     return hits === length;
   }
 
   function hit() {
-    hits += 1;
+    this.hits += 1;
   }
 
-  return { length, isSunk, hit };
+  return { length, hits, isSunk, hit };
 }
 
 export default Ship;
