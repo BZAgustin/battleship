@@ -6,36 +6,23 @@ const Game = () => {
   const opponent = Player();
   const display = Display();
 
-  let activeDefender = opponent;
-  
-  function playerTurn(defender, row, column) {
-      if(defender.receiveAttack(row, column)) {
-        display.opponentStats.innerHTML = `It's a hit!`;
-      } else {
-        display.opponentStats.innerHTML = `No hit`;
-      };
-
-      if(activeDefender === opponent) {
-        activeDefender = player;
-      } else {
-        activeDefender = opponent;
-      }
+  function newTurn(defender, row, column, defenderStats) {
+    display.updateStats(defender.gameboard.receiveAttack(row, column), defenderStats);
   }
 
   function initGame() {
     player.placeMyFloat();
     opponent.placeMyFloat();
     display.drawBoards();
-    display.addCellListeners(activeDefender.gameboard, playerTurn);
+    display.addCellListeners(opponent, player, newTurn);
   }
-
 
   function play() {
     initGame();
   }
 
 
-  return { play, playerTurn }  
+  return { play, newTurn }  
 }
 
 export default Game;
