@@ -65,10 +65,21 @@ main {
 }
 
 .cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: aliceblue;
   width: 48px;
   height: 48px;
 }
+
+.cell:hover {
+  cursor: crosshair;
+}
+
+/* .left-stats, .right-stats {
+   height: 48px; 
+} */
 
 /* ------------------------------ FOOTER ------------------------------ */
 
