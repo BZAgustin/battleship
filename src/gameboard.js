@@ -57,9 +57,12 @@ const Gameboard = () => {
     if(board[row][column] !== null) {
       board[row][column].hit();
       board[row][column] = null;
+      trackingBoard[row][column] = true;
+      return true;
     }
 
     trackingBoard[row][column] = true;
+    return false;
   }
 
   function areShipsSunk() {
