@@ -6,17 +6,29 @@ const Game = () => {
   const opponent = Player();
   const display = Display();
 
-  let activeDefender = opponent
+  let activeDefender = opponent;
+  
+  function playerTurn(defender, row, column) {
+      if(defender.receiveAttack(row, column)) {
+        display.opponentStats.innerHTML = `It's a hit!`;
+      } else {
+        display.opponentStats.innerHTML = `No hit`;
+      };
+
+      if(activeDefender === opponent) {
+        activeDefender = player;
+      } else {
+        activeDefender = opponent;
+      }
+  }
 
   function initGame() {
     player.placeMyFloat();
     opponent.placeMyFloat();
     display.drawBoards();
+    display.addCellListeners(activeDefender.gameboard, playerTurn);
   }
-  
-  function playerTurn(defender, row, column) {
-    defender.gameboard.receiveAttack(row, column);
-  }
+
 
   function play() {
     initGame();
