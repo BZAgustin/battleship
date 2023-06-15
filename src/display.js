@@ -1,6 +1,5 @@
-const SIZE = 10;
-
 const Display = () => {
+  const SIZE = 10;
   const leftBoard = document.getElementById('left-board');
   const rightBoard = document.getElementById('right-board');
   const myStats = document.getElementById('left-stats');
@@ -23,27 +22,49 @@ const Display = () => {
     }
   }
 
-  function addCellListeners(gameboard, handleTurn) {
+  function updateCell(cell, div) {
+    const cellDiv = div;
+
+    if(cell !== null) {
+      cellDiv.style.backgroundColor = 'pink';
+    } else {
+      cellDiv.style.backgroundColor = 'gray';
+    }
+
+    cellDiv.innerHTML = '●';
+  }
+
+  function updateStats(hit, div) {
+    const statsDiv = div;
+
+    if(hit) {
+      statsDiv.innerHTML = `It's a hit!`;
+    } else {
+      statsDiv.innerHTML = `No hit`;
+    }
+  }
+
+  function addCellListeners(opponent, player, handleTurn) {
     const cells = document.getElementById('right-board');
     const children = Array.from(cells.childNodes);
     children.forEach((cell) => {
       cell.addEventListener('click', (e) => {
-          const row = parseInt(e.target.dataset.row, 10);
-          const col = parseInt(e.target.dataset.col, 10);
+        const row = parseInt(e.target.dataset.row, 10);
+        const col = parseInt(e.target.dataset.col, 10);
 
-          if(gameboard.board[row][col] !== null) {
-            e.target.style.backgroundColor = 'pink';
-          } else {
-            e.target.style.backgroundColor = 'gray';
-          }
-          
-          handleTurn(gameboard, row, col);
-          e.target.innerHTML = '●';
-        });
+        updateCell(opponent.gameboard.board[row][col], e.target);
+        handleTurn(opponent, row, col, opponentStats);
+
+        const randomRow = Math.floor(Math.random() * 10); 
+        const randomCol = Math.floor(Math.random() * 10);
+
+        updateCell(player.gameboard.board[randomRow][randomCol], leftBoard.querySelector(`[data-row="${randomRow}"][data-col="${randomCol}"]`));
+        handleTurn(player, randomRow, randomCol, myStats);
       });
+    });
   }
 
-  return { myStats, opponentStats, drawBoards, addCellListeners }
+  return { myStats, opponentStats, drawBoards, updateStats, addCellListeners }
 };
 
 export default Display;
