@@ -14,7 +14,7 @@ const Player = () => {
   ];
 
   function isFloatSunk() {
-    Array.from(float).every((ship) => ship.isSunk() === true);
+    float.every((ship) => ship.isSunk() === true);
   }
 
   function placeMyFloat() {
