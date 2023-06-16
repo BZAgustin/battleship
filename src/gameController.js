@@ -14,9 +14,9 @@ const Game = () => {
   }
   
   function play() {
-    player.placeMyFloat();
     opponent.placeMyFloat();
     display.drawBoards();
+    display.addShipPlacementListeners(player);
     display.addCellListeners(opponent, player, newTurn);
   }
   
