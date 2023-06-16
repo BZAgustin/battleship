@@ -71,8 +71,7 @@ const Display = () => {
   }
 
   function addCellListeners(opponent, player, handleTurn) {
-    const cells = document.getElementById('right-board');
-    const children = Array.from(cells.childNodes);
+    const children = Array.from(rightBoard.childNodes);
     children.forEach((cell) => {
       cell.addEventListener('click', (e) => {
         const row = parseInt(e.target.dataset.row, 10);
@@ -109,7 +108,32 @@ const Display = () => {
     });
   }
 
-  return { myStats, opponentStats, drawBoards, clearBoards, reset, updateStats, showGameOverScreen, addCellListeners, addRestartListener }
+  function addShipPlacementListeners(player) {
+    const children = Array.from(leftBoard.childNodes);
+    children.forEach(cell => {
+      cell.addEventListener('click', (e) => {
+        const row = parseInt(e.target.dataset.row, 10);
+        const col = parseInt(e.target.dataset.col, 10);
+
+        if(player.placedShips === 5) {
+          return null;
+        }
+
+        try {
+          player.gameboard.placeShip(player.float[player.placedShips], row, col);
+          player.addPlacedShip();
+        } catch {
+          myStats.innerHTML = 'Invalid placement';
+          return null;
+        }
+
+
+        return null;
+      });
+    });
+  }
+
+  return { myStats, opponentStats, drawBoards, clearBoards, reset, updateStats, showGameOverScreen, addCellListeners, addRestartListener, addShipPlacementListeners }
 };
 
 export default Display;
