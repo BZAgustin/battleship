@@ -15,6 +15,8 @@ const Player = (_name) => {
     Ship(2)
   ];
 
+  const placedShips = 0;
+
   function isFloatSunk() {
     return float.every((ship) => ship.isSunk() === true);
   }
@@ -26,7 +28,11 @@ const Player = (_name) => {
     gameboard.placeFloat(myFloat);
   }
 
-  return { name, gameboard, float, isFloatSunk, placeMyFloat };
+  function addPlacedShip() {
+    this.placedShips += 1;
+  }
+
+  return { name, gameboard, float, placedShips, isFloatSunk, placeMyFloat, addPlacedShip };
 }
 
 export default Player;
