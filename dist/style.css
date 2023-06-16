@@ -73,12 +73,20 @@ main {
   height: 48px;
 }
 
+#left-board .cell:hover {
+  cursor: cell;
+}
+
 #right-board .cell:hover {
   cursor: crosshair;
 }
 
 #left-stats, #right-stats {
    min-height: 28px; 
+}
+
+.disabled {
+  cursor: context-menu !important;
 }
 
 /* ------------------------------ FOOTER ------------------------------ */
