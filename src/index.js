@@ -1,3 +1,3 @@
 import Game from "./gameController";
 
-Game().play();
+Game().start();
