@@ -1,5 +1,6 @@
 const Display = () => {
   const SIZE = 10;
+  const body = document.querySelector('body');
   const leftBoard = document.getElementById('left-board');
   const rightBoard = document.getElementById('right-board');
   const myStats = document.getElementById('left-stats');
@@ -8,6 +9,8 @@ const Display = () => {
   const overlay = document.querySelector('.overlay-container');
   const winner = document.getElementById('winner');
   const btnPlayAgain = document.getElementById('btn-play-again');
+
+  let verticalPlacement = true;
 
   function drawBoards() {
     for(let i = 0; i < SIZE; i += 1) {
@@ -65,6 +68,46 @@ const Display = () => {
     }
   }
 
+  function getPlaceholder(board, length, row, col, isVertical) {
+    const cells = [];
+
+    for(let i = 0; i < length; i += 1) {
+      if(isVertical) {
+        const cell = document.querySelector(`[data-row="${row+i}"][data-col="${col}"]`);
+
+        if(row + i < 10 && board[row+i][col] === null) {
+          cells.push(cell);
+        }
+      } else {
+        const cell = document.querySelector(`[data-row="${row}"][data-col="${col+i}"]`);
+
+        if(col + i < 10 && board[row][col+i] === null) {
+          cells.push(cell);
+        }
+      } 
+    }
+
+    return cells;
+  }
+
+  function drawShip(board, length, row, col) {
+    const cells = getPlaceholder(board, length, row, col, verticalPlacement);
+
+    cells.forEach(cell => {
+      const cellDiv = cell;
+      cellDiv.style.backgroundColor = 'green';
+    });
+  }
+
+  function hideShip(board, length, row, col) {
+    const cells = getPlaceholder(board, length, row, col, verticalPlacement);
+
+    cells.forEach(cell => {
+      const cellDiv = cell;
+        cellDiv.style.backgroundColor = 'white';
+    });
+  }
+
   function showGameOverScreen(winnerName) {
     overlay.style.display = 'flex';
     winner.innerHTML = `${winnerName} is the winner!`;
@@ -108,7 +151,7 @@ const Display = () => {
     });
   }
 
-  function addShipPlacementListeners(player) {
+  function addShipPlacementListeners(player, playHandler) {
     const children = Array.from(leftBoard.childNodes);
     children.forEach(cell => {
       cell.addEventListener('click', (e) => {
@@ -120,16 +163,63 @@ const Display = () => {
         }
 
         try {
-          player.gameboard.placeShip(player.float[player.placedShips], row, col);
+          player.gameboard.placeShip(player.float[player.placedShips], row, col, verticalPlacement);
           player.addPlacedShip();
+          
         } catch {
           myStats.innerHTML = 'Invalid placement';
           return null;
         }
 
+        if(player.placedShips === 5) {
+          children.forEach(square => {
+            square.classList.add('disabled');
+          });
+
+          playHandler();
+        }
 
         return null;
       });
+
+      cell.addEventListener('mouseenter', (e) => {
+        const row = parseInt(e.target.dataset.row, 10);
+        const col = parseInt(e.target.dataset.col, 10);
+
+        if(player.placedShips === 5 || player.gameboard.board[row][col] !== null) {
+          return null;
+        }
+
+        drawShip(player.gameboard.board, player.float[player.placedShips].length, row, col);
+        return null;
+      });
+
+      cell.addEventListener('mouseleave', (e) => {
+        const row = parseInt(e.target.dataset.row, 10);
+        const col = parseInt(e.target.dataset.col, 10);
+
+        if(player.placedShips === 5 || player.gameboard.board[row][col] !== null) {
+          return null;
+        }
+
+        hideShip(player.gameboard.board, player.float[player.placedShips].length, row, col)
+        return null;
+      });
+    });
+
+    body.addEventListener('keypress', (e) => {
+      if(e.key === 'r') {
+        children.forEach(cell => {
+          const cellDiv = cell;
+          const {row} = cellDiv.dataset;
+          const {col} = cellDiv.dataset;
+          if(player.gameboard.board[row][col] === null) {
+            cellDiv.style.backgroundColor = 'white';
+          }
+         });
+
+        verticalPlacement = !verticalPlacement;
+      }
     });
   }
 
