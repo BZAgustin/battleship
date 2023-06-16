@@ -2,7 +2,9 @@
 import Gameboard from "./gameboard"
 import Ship from "./ship";
 
-const Player = () => {
+const Player = (_name) => {
+  const name = _name;
+
   const gameboard = Gameboard();
   
   const float = [
@@ -14,7 +16,7 @@ const Player = () => {
   ];
 
   function isFloatSunk() {
-    float.every((ship) => ship.isSunk() === true);
+    return float.every((ship) => ship.isSunk() === true);
   }
 
   function placeMyFloat() {
@@ -24,7 +26,7 @@ const Player = () => {
     gameboard.placeFloat(myFloat);
   }
 
-  return { gameboard, float, isFloatSunk, placeMyFloat };
+  return { name, gameboard, float, isFloatSunk, placeMyFloat };
 }
 
 export default Player;
