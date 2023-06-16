@@ -5,7 +5,7 @@ const Ship = (_length) => {
   const hits = 0;
 
   function isSunk() {
-    return hits === length;
+    return this.hits === this.length;
   }
 
   function hit() {
