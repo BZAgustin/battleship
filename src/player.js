@@ -23,9 +23,9 @@ const Player = (_name) => {
 
   function placeMyFloat() {
     const myFloat = [];
-    float.forEach(ship => myFloat.push(ship));
+    this.float.forEach(ship => myFloat.push(ship));
 
-    gameboard.placeFloat(myFloat);
+    this.gameboard.placeFloat(myFloat);
   }
 
   function addPlacedShip() {
