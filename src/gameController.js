@@ -6,6 +6,7 @@ const Game = () => {
   let opponent = Player('Computer');
   const display = Display();
 
+  
   function newTurn(attacker, defender, row, column, defenderStats) {
     display.updateStats(defender.gameboard.receiveAttack(row, column), defenderStats);
     if(defender.isFloatSunk()) {
@@ -15,21 +16,24 @@ const Game = () => {
   
   function play() {
     opponent.placeMyFloat();
-    display.drawBoards();
-    display.addShipPlacementListeners(player);
     display.addCellListeners(opponent, player, newTurn);
+  }
+  
+  function start() {
+    display.drawBoards();
+    display.addShipPlacementListeners(player, play);
   }
   
   function restart() {
     display.reset();
     player = Player('Player');
     opponent = Player('Computer');
-    play();
+    start();
   }
 
   display.addRestartListener(restart);
   
-  return { play, newTurn, restart }
+  return { start, newTurn, restart }
 }
 
 export default Game;
