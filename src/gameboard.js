@@ -5,6 +5,10 @@ const Gameboard = () => {
   const trackingBoard = Array.from({ length: 10 }, 
   () => Array(10).fill(false));
 
+  function isCoordinateTaken(row, column) {
+    return trackingBoard[row][column];
+  }
+
   function isOverlapping(ship, row, column, isVertical) {
     if(isVertical === false) {
       for(let i = 0; i < ship.length; i+=1) {
@@ -81,7 +85,7 @@ const Gameboard = () => {
     }
   }
 
-  return { board, trackingBoard, placeShip, receiveAttack, areShipsSunk, placeFloat }
+  return { board, trackingBoard, isCoordinateTaken, placeShip, receiveAttack, areShipsSunk, placeFloat }
 };
 
 export default Gameboard;
