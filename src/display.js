@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 const Display = () => {
   const SIZE = 10;
   const body = document.querySelector('body');
@@ -108,6 +109,10 @@ const Display = () => {
     });
   }
 
+  function switchAxis() {
+    verticalPlacement = !verticalPlacement;
+  }
+
   function showGameOverScreen(winnerName) {
     overlay.style.display = 'flex';
     winner.innerHTML = `${winnerName} is the winner!`;
@@ -165,7 +170,11 @@ const Display = () => {
         try {
           player.gameboard.placeShip(player.float[player.placedShips], row, col, verticalPlacement);
           player.addPlacedShip();
-          
+        if(player.placedShips === 5) {
+          myStats.innerHTML = `Player's turn`;
+        } else {
+          myStats.innerHTML = `Place your ${player.float[player.placedShips].name}`;
+        }
         } catch {
           myStats.innerHTML = 'Invalid placement';
           return null;
@@ -206,24 +215,9 @@ const Display = () => {
         return null;
       });
     });
-
-    body.addEventListener('keypress', (e) => {
-      if(e.key === 'r') {
-        children.forEach(cell => {
-          const cellDiv = cell;
-          const {row} = cellDiv.dataset;
-          const {col} = cellDiv.dataset;
-          if(player.gameboard.board[row][col] === null) {
-            cellDiv.style.backgroundColor = 'white';
-          }
-         });
-
-        verticalPlacement = !verticalPlacement;
-      }
-    });
   }
 
-  return { myStats, opponentStats, drawBoards, clearBoards, reset, updateStats, showGameOverScreen, addCellListeners, addRestartListener, addShipPlacementListeners }
+  return { body, leftBoard, myStats, opponentStats, verticalPlacement, drawBoards, clearBoards, switchAxis, reset, updateStats, showGameOverScreen, addCellListeners, addRestartListener, addShipPlacementListeners }
 };
 
 export default Display;
