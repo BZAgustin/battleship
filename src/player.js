@@ -8,11 +8,11 @@ const Player = (_name) => {
   const gameboard = Gameboard();
   
   const float = [
-    Ship(5),
-    Ship(4),
-    Ship(3),
-    Ship(3),
-    Ship(2)
+    Ship('Carrier', 5),
+    Ship('Battleship', 4),
+    Ship('Cruiser', 3),
+    Ship('Submarine', 3),
+    Ship('Destroyer', 2)
   ];
 
   const placedShips = 0;
