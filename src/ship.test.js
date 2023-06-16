@@ -1,5 +1,5 @@
 /* eslint-disable no-plusplus */
-import shipFactory from "./ship";
+import Ship from "./ship";
 
 const shipTypes = [
   { name: "destroyer", length: 3 },
@@ -19,7 +19,7 @@ const testShipSinking = (ship, shipLength) => {
 
 shipTypes.forEach((shipType) => {
   test(`Returns true if hit sunk ${shipType.name}`, () => {
-    const ship = shipFactory(shipType.length);
+    const ship = Ship('ship', shipType.length);
     testShipSinking(ship, shipType.length);
   });
 });

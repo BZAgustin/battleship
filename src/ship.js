@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
-
-const Ship = (_length) => {
+const Ship = (_name, _length) => {
+  const name = _name;
   const length = _length;
   const hits = 0;
 
@@ -12,7 +11,7 @@ const Ship = (_length) => {
     this.hits += 1;
   }
 
-  return { length, hits, isSunk, hit };
+  return { name, length, hits, isSunk, hit };
 }
 
 export default Ship;

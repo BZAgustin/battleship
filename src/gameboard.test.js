@@ -10,7 +10,7 @@ let trackboard = [];
 
 beforeEach(() => {
   gameboard = Gameboard();
-  ship = Ship(3);
+  ship = Ship('ship', 3);
   testboard = Array.from({ length: 10 },
             () => Array(10).fill(null));
   trackboard = Array.from({ length: 10 },
