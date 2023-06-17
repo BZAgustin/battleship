@@ -12,7 +12,7 @@ const Game = () => {
     } else {
       display.updateStats(defender.gameboard.receiveAttack(row, column), defenderStats);
     }
-    
+
     if(defender.isFloatSunk()) {
       display.showGameOverScreen(attacker.name);
     }
@@ -44,7 +44,7 @@ const Game = () => {
         const {row} = cellDiv.dataset;
         const {col} = cellDiv.dataset;
         if(player.gameboard.board[row][col] === null) {
-          cellDiv.style.backgroundColor = 'white';
+          cellDiv.style.backgroundColor = 'rgba(255, 255, 255, 0.5)';
         }
       });
 
