@@ -43,7 +43,7 @@ const Display = () => {
 
   function reset() {
     clearBoards();
-    myStats.innerHTML = '';
+    myStats.innerHTML = 'Place your Carrier';
     opponentStats.innerHTML = '';
   }
 
@@ -57,13 +57,15 @@ const Display = () => {
     }
   }
 
-  function updateStats(hit, div) {
+  function updateStats(sunk, div, shipName = '') {
     const statsDiv = div;
 
-    if(hit) {
-      statsDiv.innerHTML = `It's a hit!`;
-    } else {
+    if(sunk === null) {
       statsDiv.innerHTML = `No hit`;
+    } else if(!sunk) {
+      statsDiv.innerHTML = `It's a hit!`;
+    } else if (sunk) {
+      statsDiv.innerHTML = `${shipName} has been sunk!`;
     }
   }
 
