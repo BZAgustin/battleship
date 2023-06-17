@@ -7,7 +7,12 @@ const Game = () => {
   const display = Display();
   
   function newTurn(attacker, defender, row, column, defenderStats) {
-    display.updateStats(defender.gameboard.receiveAttack(row, column), defenderStats);
+    if(defender.gameboard.board[row][column] !== null) {
+      display.updateStats(defender.gameboard.receiveAttack(row, column), defenderStats, defender.gameboard.board[row][column].name);
+    } else {
+      display.updateStats(defender.gameboard.receiveAttack(row, column), defenderStats);
+    }
+    
     if(defender.isFloatSunk()) {
       display.showGameOverScreen(attacker.name);
     }
