@@ -55,8 +55,6 @@ const Display = () => {
     } else {
       cellDiv.style.backgroundColor = 'gray';
     }
-
-    cellDiv.innerHTML = '●';
   }
 
   function updateStats(hit, div) {
