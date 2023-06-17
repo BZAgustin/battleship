@@ -6,6 +6,7 @@ const Display = () => {
   const rightBoard = document.getElementById('right-board');
   const myStats = document.getElementById('left-stats');
   const opponentStats = document.getElementById('right-stats');
+  const hitIconSrc = './assets/explosion.png'
 
   const overlay = document.querySelector('.overlay-container');
   const winner = document.getElementById('winner');
@@ -18,6 +19,14 @@ const Display = () => {
       for(let j = 0; j < SIZE; j += 1) {
         const leftCell = document.createElement('div');
         const rightCell = document.createElement('div');
+        const leftIcon = document.createElement('img');
+        const rightIcon = document.createElement('img');
+
+        leftIcon.src = hitIconSrc;
+        rightIcon.src = hitIconSrc;
+
+        leftIcon.style.display = 'none';
+        rightIcon.style.display = 'none';
 
         leftCell.className = 'cell';
         rightCell.className = 'cell';
@@ -28,6 +37,8 @@ const Display = () => {
         rightCell.dataset.row = i;
         rightCell.dataset.col = j;
         
+        leftCell.appendChild(leftIcon);
+        rightCell.appendChild(rightIcon);
         leftBoard.appendChild(leftCell);
         rightBoard.appendChild(rightCell);
       }
@@ -51,9 +62,10 @@ const Display = () => {
     const cellDiv = div;
 
     if(cell !== null) {
-      cellDiv.style.backgroundColor = 'pink';
+      cellDiv.style.backgroundColor = '#ff6200';
+      cellDiv.firstChild.style.display = 'block';
     } else {
-      cellDiv.style.backgroundColor = 'gray';
+      cellDiv.style.backgroundColor = 'rgba(150, 150, 150, 0.5)';
     }
   }
 
@@ -96,7 +108,7 @@ const Display = () => {
 
     cells.forEach(cell => {
       const cellDiv = cell;
-      cellDiv.style.backgroundColor = 'green';
+      cellDiv.style.backgroundColor = '#0077ff';
     });
   }
 
@@ -105,7 +117,7 @@ const Display = () => {
 
     cells.forEach(cell => {
       const cellDiv = cell;
-        cellDiv.style.backgroundColor = 'white';
+        cellDiv.style.backgroundColor = 'rgba(255, 255, 255, 0.5)';
     });
   }
 
@@ -173,7 +185,7 @@ const Display = () => {
         if(player.placedShips === 5) {
           myStats.innerHTML = `Player's turn`;
         } else {
-          myStats.innerHTML = `Place your ${player.float[player.placedShips].name}`;
+          myStats.innerHTML = `Place your ${player.float[player.placedShips].name} (Press 'R' to rotate)`;
         }
         } catch {
           myStats.innerHTML = 'Invalid placement';
