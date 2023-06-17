@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable no-param-reassign */
 
 const Gameboard = () => {
   const board = Array.from({ length: 10 }, 
@@ -80,11 +82,30 @@ const Gameboard = () => {
   }
 
   function placeFloat(ships) {
-    for(let i = 0; i < ships.length; i+=1) {
-      placeShip(ships[i], 0, i, true);
+    for (const ship of ships) {
+      let isShipPlaced = false;
+  
+      while (!isShipPlaced) {
+        const randomRow = Math.floor(Math.random() * 10);
+        const randomCol = Math.floor(Math.random() * 10);
+  
+        const randomAxis = Math.round(Math.random());
+  
+        if (!isOutOfBounds(ship, randomRow, randomCol, !!randomAxis)) {
+          if (!isOverlapping(ship, randomRow, randomCol, !!randomAxis)) {
+            if(randomAxis === 0) {
+              placeShip(ship, randomRow, randomCol, !!randomAxis);
+            } else {
+              placeShip(ship, randomRow, randomCol, !!randomAxis);
+            }
+
+            isShipPlaced = true;
+          }
+        }
+      }
     }
   }
-
+  
   return { board, trackingBoard, isCoordinateTaken, placeShip, receiveAttack, areShipsSunk, placeFloat }
 };
 
