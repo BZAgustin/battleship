@@ -1,7 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Bebas+Neue&display=swap');
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  text-decoration: none;
+}
+
+a {
+  color: rgb(255, 136, 0);
+  transition: 0.3s;
+}
+
+a:hover {
+  color: rgb(255, 182, 98);
 }
 
 html,
@@ -11,21 +23,45 @@ body {
   padding: 0;
 }
 
+body {
+  background-image: url('./assets/oceanBackground.jpg');
+  background-size: cover;
+}
+
 .wrapper {
   display: flex;
   flex-direction: column;
   height: 100%;
 }
 
+
 header, footer {
   padding: 8px;
   text-align: center;
 }
 
+header, footer, main {
+  color: rgb(226, 226, 226);
+}
+
+main, footer {
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  font-family: 'Bebas Neue';
+  filter: drop-shadow(1px 1px 5px black);
+}
+
 /* ------------------------------ HEADER ------------------------------ */
 
 header {
-  background-color: darkolivegreen;
+  font-family: 'Abril Fatface';
+  letter-spacing: 4px;
+  font-size: 2rem;
+  color: rgb(255, 136, 0);
+}
+
+header h1 {
+  filter: drop-shadow(1px 1px 5px rgb(34, 34, 34))
 }
 
 /* ------------------------------ BOARDS ------------------------------ */
@@ -49,14 +85,6 @@ main {
   gap: 24px;
 }
 
-.left-board-container {
-  background-color: rgb(49, 80, 48);
-}
-
-.right-board-container {
-  background-color: rgb(51, 63, 34);
-}
-
 #left-board, #right-board {
   display: grid;
   grid-template-rows: repeat(10, 1fr);
@@ -65,12 +93,21 @@ main {
 }
 
 .cell {
+  font-weight: bold;
+  font-size: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: aliceblue;
+  background-color: rgba(255, 255, 255, 0.5);
   width: 48px;
   height: 48px;
+  transition: 0.15s;
+  box-shadow: 1px 1px 5px black;
+}
+
+.cell img {
+  width: 24px;
+  height: 24px;
 }
 
 #left-board .cell:hover {
@@ -86,13 +123,7 @@ main {
 }
 
 .disabled {
-  cursor: context-menu !important;
-}
-
-/* ------------------------------ FOOTER ------------------------------ */
-
-footer {
-  background-color: darkslategrey;
+  cursor: default !important;
 }
 
 /* ------------------------------ OVERLAY ------------------------------ */
